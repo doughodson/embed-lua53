@@ -1,0 +1,22 @@
+# vs directories
+build/obj/
+vs2019/
+
+.vscode/
+
+# lib directory
+lib/
+
+# keep premake
+!premake*.*
+
+# vs compiler generated files
+*.idb
+*.ilk
+*.pdb
+
+# compiled object files
+*.[oa]
+
+# backup files
+*.bak
