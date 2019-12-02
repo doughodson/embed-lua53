@@ -20,3 +20,8 @@ lib/
 
 # backup files
 *.bak
+
+# apps
+part1.exe
+part1_d.exe
+

@@ -9,16 +9,15 @@ if (_ACTION == nil) then
     return
 end
 
-LUA_IncPath  = "../../lua/src"
-LUA_LibPath  = "../../lua/lib"
+Lua_IncPath  = "../../lua/src"
+Lua_LibPath  = "../../lua/lib"
+LuaLib       = "lua"
+LuaLib_d     = "lua_d"
 
 workspace "embed-lua"
 
    -- destination directory for generated solution/project files
    location ("../" .. _ACTION)
-
-   -- common include directories (all configurations/all projects)
-   includedirs { LUA_IncPath }
 
    --
    -- Build (solution) configuration options:
@@ -47,8 +46,11 @@ workspace "embed-lua"
 
 -- lua library
 project "lua"
+   targetname "lua"
+   targetdir ("../../lua/lib/")
    kind "StaticLib"
    language "C"
+   includedirs { Lua_IncPath }
    files {
       "../../lua/src/**.*"
    }
@@ -56,14 +58,19 @@ project "lua"
       "../../lua/src/lua.c",
       "../../lua/src/luac.c"
    }
-   targetdir ("../../lua/lib/")
-   targetname "lua"
 
 -- part1 executable
 project "part1"
-   kind "StaticLib"
+   targetname "part1"
+   targetdir ("../../part1/")
+   kind "ConsoleApp"
    language "C++"
+   includedirs { Lua_IncPath }
+   libdirs     { Lua_LibPath }
    files {
       "../../part1/**.*"
    }
-   targetname "part1"
+   filter "configurations:Release"
+      links {LuaLib}
+   filter "configurations:Debug"
+      links {LuaLib_d}
