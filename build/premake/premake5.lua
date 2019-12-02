@@ -39,7 +39,7 @@ workspace "embed-lua"
       -- enable compiler intrinsics
       defines { "WIN32", "_LIB", "_DEBUG" }
 
--- lua library
+-- lua library (lua.lib)
 project "lua-5.3.5"
    targetname "lua"
    targetdir ("../../lua-5.3.5/lib/")
@@ -53,6 +53,34 @@ project "lua-5.3.5"
       "../../lua-5.3.5/src/lua.c",
       "../../lua-5.3.5/src/luac.c"
    }
+
+   -- lua interpreter (lua)
+   project "lua-repl"
+      targetname "lua"
+      targetdir ("../../lua-repl")
+      kind "ConsoleApp"
+      language "C"
+      includedirs { Lua_IncPath }
+      files {
+         "../../lua-5.3.5/src/**.*"
+      }
+      excludes {
+         "../../lua-5.3.5/src/luac.c"
+      }
+
+      -- lua compiler (luac)
+      project "luac"
+         targetname "luac"
+         targetdir ("../../luac")
+         kind "ConsoleApp"
+         language "C"
+         includedirs { Lua_IncPath }
+         files {
+            "../../lua-5.3.5/src/**.*"
+         }
+         excludes {
+            "../../lua-5.3.5/src/lua.c",
+         }
 
 project "ex01"
    targetname "ex01"
