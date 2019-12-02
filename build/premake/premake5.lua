@@ -9,10 +9,9 @@ if (_ACTION == nil) then
     return
 end
 
-Lua_IncPath  = "../../lua/src"
-Lua_LibPath  = "../../lua/lib"
-LuaLib       = "lua"
-LuaLib_d     = "lua_d"
+Lua_IncPath  = "../../lua-5.3.5/src"
+Lua_LibPath  = "../../lua-5.3.5/lib"
+Lua_LibFile  = "lua"
 
 workspace "embed-lua"
 
@@ -40,23 +39,19 @@ workspace "embed-lua"
       -- enable compiler intrinsics
       defines { "WIN32", "_LIB", "_DEBUG" }
 
-   --
-   -- libraries
-   --
-
 -- lua library
-project "lua"
+project "lua-5.3.5"
    targetname "lua"
-   targetdir ("../../lua/lib/")
+   targetdir ("../../lua-5.3.5/lib/")
    kind "StaticLib"
    language "C"
    includedirs { Lua_IncPath }
    files {
-      "../../lua/src/**.*"
+      "../../lua-5.3.5/src/**.*"
    }
    excludes {
-      "../../lua/src/lua.c",
-      "../../lua/src/luac.c"
+      "../../lua-5.3.5/src/lua.c",
+      "../../lua-5.3.5/src/luac.c"
    }
 
 -- part1 executable
@@ -70,7 +65,4 @@ project "part1"
    files {
       "../../part1/**.*"
    }
-   filter "configurations:Release"
-      links {LuaLib}
-   filter "configurations:Debug"
-      links {LuaLib_d}
+   links {"lua-5.3.5"}
