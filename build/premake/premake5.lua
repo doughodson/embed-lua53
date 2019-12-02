@@ -39,20 +39,20 @@ workspace "embed-lua"
       -- enable compiler intrinsics
       defines { "WIN32", "_LIB", "_DEBUG" }
 
--- lua library (lua.lib)
-project "lua-5.3.5"
-   targetname "lua"
-   targetdir ("../../lua-5.3.5/lib/")
-   kind "StaticLib"
-   language "C"
-   includedirs { Lua_IncPath }
-   files {
-      "../../lua-5.3.5/src/**.*"
-   }
-   excludes {
-      "../../lua-5.3.5/src/lua.c",
-      "../../lua-5.3.5/src/luac.c"
-   }
+   -- lua library (lua.lib)
+   project "lua-5.3.5"
+      targetname "lua"
+      targetdir ("../../lua-5.3.5/lib/")
+      kind "StaticLib"
+      language "C"
+      includedirs { Lua_IncPath }
+      files {
+         "../../lua-5.3.5/src/**.*"
+      }
+      excludes {
+         "../../lua-5.3.5/src/lua.c",
+         "../../lua-5.3.5/src/luac.c"
+      }
 
    -- lua interpreter (lua)
    project "lua-repl"
@@ -62,37 +62,33 @@ project "lua-5.3.5"
       language "C"
       includedirs { Lua_IncPath }
       files {
-         "../../lua-5.3.5/src/**.*"
+         "../../lua-5.3.5/src/lua.c"
       }
-      excludes {
+      links {"lua-5.3.5"}
+
+   -- lua compiler (luac)
+   project "lua-compiler"
+      targetname "luac"
+      targetdir ("../../luac")
+      kind "ConsoleApp"
+      language "C"
+      includedirs { Lua_IncPath }
+      files {
          "../../lua-5.3.5/src/luac.c"
       }
+      links {"lua-5.3.5"}
 
-      -- lua compiler (luac)
-      project "luac"
-         targetname "luac"
-         targetdir ("../../luac")
-         kind "ConsoleApp"
-         language "C"
-         includedirs { Lua_IncPath }
-         files {
-            "../../lua-5.3.5/src/**.*"
-         }
-         excludes {
-            "../../lua-5.3.5/src/lua.c",
-         }
-
-project "ex01"
-   targetname "ex01"
-   targetdir ("../../ex01/")
-   kind "ConsoleApp"
-   language "C++"
-   includedirs { Lua_IncPath }
-   libdirs     { Lua_LibPath }
-   files {
-      "../../ex01/**.*"
-   }
-   links {"lua-5.3.5"}
+   project "ex01"
+      targetname "ex01"
+      targetdir ("../../ex01/")
+      kind "ConsoleApp"
+      language "C++"
+      includedirs { Lua_IncPath }
+      libdirs     { Lua_LibPath }
+      files {
+         "../../ex01/**.*"
+      }
+      links {"lua-5.3.5"}
 
    project "ex02"
       targetname "ex02"
@@ -103,5 +99,29 @@ project "ex01"
       libdirs     { Lua_LibPath }
       files {
          "../../ex02/**.*"
+      }
+      links {"lua-5.3.5"}
+
+   project "ex03"
+      targetname "ex03"
+      targetdir ("../../ex03/")
+      kind "ConsoleApp"
+      language "C++"
+      includedirs { Lua_IncPath }
+      libdirs     { Lua_LibPath }
+      files {
+         "../../ex03/**.*"
+      }
+      links {"lua-5.3.5"}
+
+   project "ex04"
+      targetname "ex04"
+      targetdir ("../../ex04/")
+      kind "ConsoleApp"
+      language "C++"
+      includedirs { Lua_IncPath }
+      libdirs     { Lua_LibPath }
+      files {
+         "../../ex04/**.*"
       }
       links {"lua-5.3.5"}
