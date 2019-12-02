@@ -54,15 +54,26 @@ project "lua-5.3.5"
       "../../lua-5.3.5/src/luac.c"
    }
 
--- part1 executable
-project "part1"
-   targetname "part1"
-   targetdir ("../../part1/")
+project "ex01"
+   targetname "ex01"
+   targetdir ("../../ex01/")
    kind "ConsoleApp"
    language "C++"
    includedirs { Lua_IncPath }
    libdirs     { Lua_LibPath }
    files {
-      "../../part1/**.*"
+      "../../ex01/**.*"
    }
    links {"lua-5.3.5"}
+
+   project "ex02"
+      targetname "ex02"
+      targetdir ("../../ex02/")
+      kind "ConsoleApp"
+      language "C++"
+      includedirs { Lua_IncPath }
+      libdirs     { Lua_LibPath }
+      files {
+         "../../ex02/**.*"
+      }
+      links {"lua-5.3.5"}

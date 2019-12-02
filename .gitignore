@@ -22,6 +22,7 @@ lib/
 *.bak
 
 # apps
-part1.exe
-part1_d.exe
-
+ex01.exe
+ex01_d.exe
+ex02.exe
+ex02_d.exe
