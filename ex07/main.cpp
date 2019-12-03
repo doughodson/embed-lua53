@@ -1,83 +1,89 @@
 
 #include <cstdio>
+#include <new>
+#include <assert.h>
 #include "lua.hpp"
-#include "assert.h"
 
 int main()
 {
-   std::printf("----- metatables and metamethod(s) -----\n");
+   std::printf("---- C++ constructors and destructors ----\n");
+   static int numberOfSpritesExisting{};
 
-   struct Vec
+   struct Sprite
    {
-      static int CreateVector2D(lua_State* L) {
-         lua_newtable(L);
-         lua_pushstring(L, "x");
-         lua_pushnumber(L, 0);
-         lua_settable(L, -3);          // x = 0
+      int x{};
+      int y{};
+      Sprite() { numberOfSpritesExisting++; }
+      ~Sprite() { numberOfSpritesExisting--; }
 
-         lua_pushstring(L, "y");
-         lua_pushnumber(L, 0);
-         lua_settable(L, -3);          // y = 0
+      void Move(int velX, int velY)  { x += velX, y += velY; }
 
-         luaL_getmetatable(L, "VectorMetaTable");
-         lua_setmetatable(L, -2);
-         return 1;
-      }
+      void Draw() { std::printf("sprite(%p):x = %d, y= %d\n", this, x, y); }
+   };
 
-      static int __add(lua_State* L) {
-         std::printf("__add was called\n");
-         assert(lua_istable(L, -2));  // left table
-         assert(lua_istable(L, -1));  // right table
+   // create an instance of Sprite type (userdata in Lua)
+   auto CreateSprite = [](lua_State* L) -> int
+   {
+      // lua will allocate and manage memory!
+      void* pointerToASprite = lua_newuserdata(L, sizeof(Sprite));
+      // we call constructor to initialize
+      new (pointerToASprite) Sprite();
+      luaL_getmetatable(L, "SpriteMetaTable");
+      assert(lua_istable(L, -1));
+      lua_setmetatable(L, -2);
+      return 1;
+   };
 
-         lua_pushstring(L, "x");
-         lua_gettable(L, -3);
-         lua_Number xLeft = lua_tonumber(L, -1);
-         lua_pop(L, 1);
+   auto DestroySprite = [](lua_State* L) -> int
+   {
+      Sprite* sprite = (Sprite*)lua_touserdata(L, -1);
+      sprite->~Sprite();
+      return 0;
+   };
 
-         lua_pushstring(L, "x");
-         lua_gettable(L, -2);
-         lua_Number xRight = lua_tonumber(L, -1);
-         lua_pop(L, 1);
+   auto MoveSprite = [](lua_State* L) -> int
+   {
+      Sprite* sprite = (Sprite*)lua_touserdata(L, -3);
+      lua_Number velX = lua_tonumber(L, -2);
+      lua_Number velY = lua_tonumber(L, -1);
+      sprite->Move(int(velX), int(velY));
+      return 0;
+   };
 
-         lua_Number xAdded = xLeft + xRight;
-         std::printf("xAdded = %d\n", int(xAdded));
-
-         Vec::CreateVector2D(L);
-         lua_pushstring(L, "x");
-         lua_pushnumber(L, xAdded);
-         lua_rawset(L, -3);
-         return 1;
-      }
+   auto DrawSprite = [](lua_State* L) -> int
+   {
+      Sprite* sprite = (Sprite*)lua_touserdata(L, -1);
+      sprite->Draw();
+      return 0;
    };
 
    constexpr char* LUA_FILE = R"(
-   v1 = CreateVector()  -- v1 is a table
-   v2 = CreateVector()  -- v2 is a table
-   v1.x = 10
-   v2.x = 42
-   v3 = v1 + v2
-   result = v3.x
+   sprite = CreateSprite()
+   MoveSprite(sprite, 5, 7)
+   DrawSprite(sprite)
+   MoveSprite(sprite, 1, 2)
+   DrawSprite(sprite)
    )";
-
    lua_State* L = luaL_newstate();
 
-   lua_pushcfunction(L, Vec::CreateVector2D);
-   lua_setglobal(L, "CreateVector");
-
-   luaL_newmetatable(L, "VectorMetaTable");
-   lua_pushstring(L, "__add");
-   lua_pushcfunction(L, Vec::__add);
+   luaL_newmetatable(L, "SpriteMetaTable");
+   lua_pushstring(L, "__gc");
+   lua_pushcfunction(L, DestroySprite);
    lua_settable(L, -3);
 
-   int x = luaL_dostring(L, LUA_FILE);
-   if (x != LUA_OK) {
-      std::printf("Error: %s\n", lua_tostring(L,-1));
-   }
+   lua_pushcfunction(L, CreateSprite);
+   lua_setglobal(L, "CreateSprite");
+   lua_pushcfunction(L, MoveSprite);
+   lua_setglobal(L, "MoveSprite");
+   lua_pushcfunction(L, DrawSprite);
+   lua_setglobal(L, "DrawSprite");
 
-   lua_getglobal(L, "result");
-   lua_Number result = lua_tonumber(L, -1);
-   std::printf("result = %d\n", int(result));
+   int doResult = luaL_dostring(L, LUA_FILE);
+   if (doResult != LUA_OK) {
+      std::printf("Error: %s\n", lua_tostring(L, -1));
+   }
    lua_close(L);
 
+   assert(numberOfSpritesExisting==0);
    return 0;
 }
