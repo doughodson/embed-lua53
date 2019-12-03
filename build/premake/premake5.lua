@@ -86,7 +86,7 @@ workspace "embed-lua"
       includedirs { Lua_IncPath }
       libdirs     { Lua_LibPath }
       files {
-         "../../ex01/**.*"
+         "../../ex01/**.cpp"
       }
       links {"lua-5.3.5"}
 
@@ -98,7 +98,7 @@ workspace "embed-lua"
       includedirs { Lua_IncPath }
       libdirs     { Lua_LibPath }
       files {
-         "../../ex02/**.*"
+         "../../ex02/**.cpp"
       }
       links {"lua-5.3.5"}
 
@@ -110,7 +110,7 @@ workspace "embed-lua"
       includedirs { Lua_IncPath }
       libdirs     { Lua_LibPath }
       files {
-         "../../ex03/**.*"
+         "../../ex03/**.cpp"
       }
       links {"lua-5.3.5"}
 
@@ -122,6 +122,18 @@ workspace "embed-lua"
       includedirs { Lua_IncPath }
       libdirs     { Lua_LibPath }
       files {
-         "../../ex04/**.*"
+         "../../ex04/**.cpp"
+      }
+      links {"lua-5.3.5"}
+
+   project "ex05"
+      targetname "ex05"
+      targetdir ("../../ex05/")
+      kind "ConsoleApp"
+      language "C++"
+      includedirs { Lua_IncPath }
+      libdirs     { Lua_LibPath }
+      files {
+         "../../ex05/**.cpp"
       }
       links {"lua-5.3.5"}

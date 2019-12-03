@@ -12,5 +12,8 @@ This covers video 3
 #### Example app "ex03": calling functions
 This covers videos 4, 5 & 6
 
-#### Example app "ex04": using native types in lua
-This covers videos 7
+#### Example app "ex04": using native types in lua (a Sprite type)
+This covers video 7
+
+#### Example app "ex05": tables
+This covers video 8
