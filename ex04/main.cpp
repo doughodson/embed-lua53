@@ -5,7 +5,7 @@
 
 int main()
 {
-   // Create a new type "Sprite" (userdata)
+   // define a new Sprite type
    struct Sprite
    {
       int x;
@@ -14,6 +14,7 @@ int main()
       void Move(int velX, int velY)  { x += velX, y += velY; }
    };
 
+   // create an instance of Sprite type (userdata in Lua)
    auto CreateSprite = [](lua_State* L) -> int
    {
       // lua will manage memory!
