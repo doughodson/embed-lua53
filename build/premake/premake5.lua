@@ -149,3 +149,15 @@ workspace "embed-lua"
          "../../ex06/**.cpp"
       }
       links {"lua-5.3.5"}
+
+   project "ex07"
+      targetname "ex07"
+      targetdir ("../../ex07/")
+      kind "ConsoleApp"
+      language "C++"
+      includedirs { Lua_IncPath }
+      libdirs     { Lua_LibPath }
+      files {
+         "../../ex07/**.cpp"
+      }
+      links {"lua-5.3.5"}
