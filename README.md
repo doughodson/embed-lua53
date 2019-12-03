@@ -17,3 +17,6 @@ This covers video 7
 
 #### Example app "ex05": tables
 This covers video 8
+
+#### Example app "ex06": metatables
+This covers video 9
