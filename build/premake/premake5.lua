@@ -50,7 +50,7 @@ workspace "embed-lua"
          "../../lua-5.3.5/src/**.*"
       }
 
-   -- lua interpreter (lua)
+   -- lua stock interpreter (lua)
    project "lua-repl"
       targetname "lua"
       targetdir ("../../lua-repl")
@@ -71,6 +71,18 @@ workspace "embed-lua"
       includedirs { Lua_IncPath }
       files {
          "../../luac/luac.c"
+      }
+      links {"lua"}
+
+   -- lua bare interpreter (lua)
+   project "lua-bare-repl"
+      targetname "lua"
+      targetdir ("../../lua-bare-repl")
+      kind "ConsoleApp"
+      language "C"
+      includedirs { Lua_IncPath }
+      files {
+         "../../lua-bare-repl/main.c"
       }
       links {"lua"}
 
