@@ -40,7 +40,7 @@ workspace "embed-lua"
       defines { "WIN32", "_LIB", "_DEBUG" }
 
    -- lua library (lua.lib)
-   project "lua-5.3.5"
+   project "lua"
       targetname "lua"
       targetdir ("../../lua-5.3.5/lib/")
       kind "StaticLib"
@@ -48,10 +48,6 @@ workspace "embed-lua"
       includedirs { Lua_IncPath }
       files {
          "../../lua-5.3.5/src/**.*"
-      }
-      excludes {
-         "../../lua-5.3.5/src/lua.c",
-         "../../lua-5.3.5/src/luac.c"
       }
 
    -- lua interpreter (lua)
@@ -62,9 +58,9 @@ workspace "embed-lua"
       language "C"
       includedirs { Lua_IncPath }
       files {
-         "../../lua-5.3.5/src/lua.c"
+         "../../lua-repl/lua.c"
       }
-      links {"lua-5.3.5"}
+      links {"lua"}
 
    -- lua compiler (luac)
    project "lua-compiler"
@@ -74,9 +70,9 @@ workspace "embed-lua"
       language "C"
       includedirs { Lua_IncPath }
       files {
-         "../../lua-5.3.5/src/luac.c"
+         "../../luac/luac.c"
       }
-      links {"lua-5.3.5"}
+      links {"lua"}
 
    project "ex01"
       targetname "ex01"
@@ -88,7 +84,7 @@ workspace "embed-lua"
       files {
          "../../ex01/**.cpp"
       }
-      links {"lua-5.3.5"}
+      links {"lua"}
 
    project "ex02"
       targetname "ex02"
@@ -100,7 +96,7 @@ workspace "embed-lua"
       files {
          "../../ex02/**.cpp"
       }
-      links {"lua-5.3.5"}
+      links {"lua"}
 
    project "ex03"
       targetname "ex03"
@@ -112,7 +108,7 @@ workspace "embed-lua"
       files {
          "../../ex03/**.cpp"
       }
-      links {"lua-5.3.5"}
+      links {"lua"}
 
    project "ex04"
       targetname "ex04"
@@ -124,7 +120,7 @@ workspace "embed-lua"
       files {
          "../../ex04/**.cpp"
       }
-      links {"lua-5.3.5"}
+      links {"lua"}
 
    project "ex05"
       targetname "ex05"
@@ -136,7 +132,7 @@ workspace "embed-lua"
       files {
          "../../ex05/**.cpp"
       }
-      links {"lua-5.3.5"}
+      links {"lua"}
 
    project "ex06"
       targetname "ex06"
@@ -148,7 +144,7 @@ workspace "embed-lua"
       files {
          "../../ex06/**.cpp"
       }
-      links {"lua-5.3.5"}
+      links {"lua"}
 
    project "ex07"
       targetname "ex07"
@@ -160,4 +156,4 @@ workspace "embed-lua"
       files {
          "../../ex07/**.cpp"
       }
-      links {"lua-5.3.5"}
+      links {"lua"}
