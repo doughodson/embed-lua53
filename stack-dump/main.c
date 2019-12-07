@@ -1,4 +1,6 @@
 
+/* from chapter 27 */
+
 #include <stdio.h>
 #include "lua.h"
 #include "lauxlib.h"

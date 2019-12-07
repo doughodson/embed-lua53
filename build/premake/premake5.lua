@@ -98,6 +98,19 @@ workspace "embed-lua"
       }
       links {"lua"}
 
+   -- read-config (demostrates reading a config file)"
+   project "read-config"
+      targetname "read-config"
+      targetdir ("../../read-config")
+      kind "ConsoleApp"
+      language "C"
+      includedirs { Lua_IncPath }
+      files {
+         "../../read-config/main.c",
+         "../../read-config/config.lua"
+      }
+      links {"lua"}
+
    project "ex01"
       targetname "ex01"
       targetdir ("../../ex01/")

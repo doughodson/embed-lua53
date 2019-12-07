@@ -28,6 +28,8 @@ luac.exe
 luac_d.exe
 stack-dump.exe
 stack-dump_d.exe
+read-config.exe
+read-config_d.exe
 ex01.exe
 ex01_d.exe
 ex02.exe
