@@ -86,15 +86,15 @@ workspace "embed-lua"
       }
       links {"lua"}
 
-   -- stack-manipulate (use stack dump)"
-   project "stack-manipulate"
-      targetname "stack-manipulate"
-      targetdir ("../../stack-manipulate")
+   -- stack-dump (demostrates stack interface)"
+   project "stack-dump"
+      targetname "stack-dump"
+      targetdir ("../../stack-dump")
       kind "ConsoleApp"
       language "C"
       includedirs { Lua_IncPath }
       files {
-         "../../stack-manipulate/main.c"
+         "../../stack-dump/main.c"
       }
       links {"lua"}
 

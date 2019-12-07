@@ -26,8 +26,8 @@ lua.exe
 lua_d.exe
 luac.exe
 luac_d.exe
-stack-manipulate.exe
-stack-manipulate_d.exe
+stack-dump.exe
+stack-dump_d.exe
 ex01.exe
 ex01_d.exe
 ex02.exe
