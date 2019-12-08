@@ -1,6 +1,7 @@
 # vs directories
 build/obj/
 vs2019/
+gmake/
 
 .vscode/
 
