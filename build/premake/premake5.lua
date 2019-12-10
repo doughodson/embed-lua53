@@ -140,8 +140,8 @@ workspace "embed-lua"
          links {"dl", "m"}
       end
 
-      -- shared library
-      project "shared, C based library"
+      -- shared, a C-based Lua library
+      project "shared"
          targetname "shared"
          targetdir ("../../shared")
          kind "SharedLib"
