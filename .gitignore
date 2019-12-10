@@ -41,10 +41,20 @@ read-config
 read-config.exe
 read-config_d.exe
 
+# don't ignore the lua interpreter in shared example
+!shared/lua
+!shared/lua.exe
+!shared/lua_d.exe
+shared.so
+shared.dll
+shared_d.dll
+
 #
 # examples based on Lua tutorial
 #
 tutorial
 tutorial.exe
 tutorial_d.exe
+
+
 
