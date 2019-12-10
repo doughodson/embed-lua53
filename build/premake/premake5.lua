@@ -152,7 +152,7 @@ workspace "embed-lua"
             "../../shared/**.c",
             "../../shared/test.lua"
          }
-         links {"lualib"}
+--         links {"lualib"}
 --         if os.ishost("linux") then
 --            links {"dl", "m"}
 --         end

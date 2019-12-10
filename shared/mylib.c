@@ -20,6 +20,6 @@ int luaopen_mylib(lua_State* l)
        { NULL, NULL }
    };
 
-   luaL_register(l, "mylib", map);
+   luaL_newlib(l, map);
    return 1;
 }
