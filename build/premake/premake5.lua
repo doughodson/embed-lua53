@@ -149,7 +149,7 @@ workspace "embed-lua"
          pic "On"
          includedirs { Lua_IncPath }
          files {
-            "../../shared/mylib.cpp",
+            "../../shared/**.c",
             "../../shared/test.lua"
          }
          links {"lualib"}
