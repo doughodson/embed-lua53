@@ -148,7 +148,7 @@ workspace "embed-lua"
       targetdir ("../../tutorial01/")
       kind "ConsoleApp"
       language "C++"
-      flags { "C++11" }
+      cppdialect "C++11"
       includedirs { Lua_IncPath }
       libdirs     { Lua_LibPath }
       files {
@@ -164,7 +164,7 @@ workspace "embed-lua"
       targetdir ("../../tutorial02/")
       kind "ConsoleApp"
       language "C++"
-      flags { "C++11" }
+      cppdialect "C++11"
       includedirs { Lua_IncPath }
       libdirs     { Lua_LibPath }
       files {
@@ -180,7 +180,7 @@ workspace "embed-lua"
       targetdir ("../../tutorial03/")
       kind "ConsoleApp"
       language "C++"
-      flags { "C++11" }
+      cppdialect "C++11"
       includedirs { Lua_IncPath }
       libdirs     { Lua_LibPath }
       files {
@@ -196,7 +196,7 @@ workspace "embed-lua"
       targetdir ("../../tutorial04/")
       kind "ConsoleApp"
       language "C++"
-      flags { "C++11" }
+      cppdialect "C++11"
       includedirs { Lua_IncPath }
       libdirs     { Lua_LibPath }
       files {
@@ -212,7 +212,7 @@ workspace "embed-lua"
       targetdir ("../../tutorial05/")
       kind "ConsoleApp"
       language "C++"
-      flags { "C++11" }
+      cppdialect "C++11"
       includedirs { Lua_IncPath }
       libdirs     { Lua_LibPath }
       files {
@@ -228,7 +228,7 @@ workspace "embed-lua"
       targetdir ("../../tutorial06/")
       kind "ConsoleApp"
       language "C++"
-      flags { "C++11" }
+      cppdialect "C++11"
       includedirs { Lua_IncPath }
       libdirs     { Lua_LibPath }
       files {
@@ -244,7 +244,7 @@ workspace "embed-lua"
       targetdir ("../../tutorial07/")
       kind "ConsoleApp"
       language "C++"
-      flags { "C++11" }
+      cppdialect "C++11"
       includedirs { Lua_IncPath }
       libdirs     { Lua_LibPath }
       files {
@@ -254,3 +254,4 @@ workspace "embed-lua"
       if os.ishost("linux") then
          links {"dl", "m"}
       end
+

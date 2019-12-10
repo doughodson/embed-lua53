@@ -26,6 +26,8 @@ gmake/
 lua
 lua.exe
 lua_d.exe
+lua.lib
+lua_d.lib
 
 luac
 luac.exe
