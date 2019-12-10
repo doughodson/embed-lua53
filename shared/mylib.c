@@ -1,14 +1,14 @@
 
 // C headers
-#include "lua.hpp"
+#include "lua.h"
+#include "lualib.h"
+#include "lauxlib.h"
 
-#include <iostream>
-
-// functions
+#include <stdio.h>
 
 static int myCfunc(lua_State* l)
 {
-  std::cout << "This is a C++ function\n";
+  printf("This is a C++ function\n");
   return 0;
 }
 
