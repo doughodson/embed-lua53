@@ -51,6 +51,7 @@ workspace "embed-lua"
       targetdir ("../../lua-5.3.5/lib/")
       kind "StaticLib"
       language "C"
+      pic "On"
       includedirs { Lua_IncPath }
       files {
          "../../lua-5.3.5/src/**.*"
@@ -90,7 +91,7 @@ workspace "embed-lua"
       end
 
    --
-   --
+   -- Related examples
    --
 
    -- lua bare interpreter (lua)
@@ -138,6 +139,23 @@ workspace "embed-lua"
       if os.ishost("linux") then
          links {"dl", "m"}
       end
+
+      -- shared library
+      project "shared, C++ based library"
+         targetname "shared"
+         targetdir ("../../shared")
+         kind "SharedLib"
+         language "C++"
+         pic "On"
+         includedirs { Lua_IncPath }
+         files {
+            "../../shared/mylib.cpp",
+            "../../shared/test.lua"
+         }
+--         links {"lualib"}
+--         if os.ishost("linux") then
+--            links {"dl", "m"}
+--         end
 
    --
    -- examples from YouTube Lua tutorial
@@ -254,4 +272,3 @@ workspace "embed-lua"
       if os.ishost("linux") then
          links {"dl", "m"}
       end
-

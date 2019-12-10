@@ -48,6 +48,7 @@ read-config_d.exe
 shared.so
 shared.dll
 shared_d.dll
+libshared.so
 
 #
 # examples based on Lua tutorial
