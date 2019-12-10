@@ -57,7 +57,7 @@ int main()
       return 0;
    };
 
-   constexpr char* LUA_FILE = R"(
+   constexpr const char* LUA_FILE = R"(
    sprite = CreateSprite()
    MoveSprite(sprite, 5, 7)
    DrawSprite(sprite)

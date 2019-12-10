@@ -50,7 +50,7 @@ int main()
       }
    };
 
-   constexpr char* LUA_FILE = R"(
+   constexpr const char* LUA_FILE = R"(
    v1 = CreateVector()  -- v1 is a table
    v2 = CreateVector()  -- v2 is a table
    v1.x = 10

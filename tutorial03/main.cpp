@@ -18,7 +18,7 @@ int main()
    // C++ calling a lua function with parameters and return values
    {
       std::printf("Calculate using Lua\n");
-      constexpr char* LUA_FILE = R"(
+      constexpr const char* LUA_FILE = R"(
       Pythagoras = function(a, b)
          return (a*a) + (b*b), a, b
       end
@@ -46,7 +46,7 @@ int main()
    // using std c++ function
    {
       std::printf("Calculate using c++ std function\n");
-      constexpr char* LUA_FILE = R"(
+      constexpr const char* LUA_FILE = R"(
       Pythagoras = function(a, b)
          csqr = NativePythagoras(a, b)
          return csqr, a, b
@@ -87,7 +87,7 @@ int main()
          return 1;
       };
 
-      constexpr char* LUA_FILE = R"(
+      constexpr const char* LUA_FILE = R"(
       Pythagoras = function(a, b)
          csqr = NativePythagoras(a, b)
          return csqr, a, b

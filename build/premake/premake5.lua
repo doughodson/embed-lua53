@@ -26,21 +26,27 @@ workspace "embed-lua"
    configurations { "Release", "Debug" }
 
    -- common release configuration flags and symbols
-   filter { "Release" }
+   filter "configurations:Release"
       optimize "On"
-      -- favor speed over size
-      buildoptions { "/Ot" }
-      defines { "WIN32", "_LIB", "NDEBUG" }
+
+   filter "system:windows"
+         -- favor speed over size
+         buildoptions { "/Ot" }
+         defines { "WIN32", "_LIB", "NDEBUG" }
 
    -- common debug configuration flags and symbols
-   filter { "Debug" }
+   filter "configurations:Debug"
       targetsuffix "_d"
       symbols "On"
-      -- enable compiler intrinsics
-      defines { "WIN32", "_LIB", "_DEBUG" }
 
-   -- lua library (lua.lib)
-   project "lua"
+   filter "system:windows"
+         defines { "WIN32", "_LIB", "_DEBUG" }
+   --
+   -- stock lua library, interpreter and compiler
+   --
+
+   -- lua library
+   project "lualib"
       targetname "lua"
       targetdir ("../../lua-5.3.5/lib/")
       kind "StaticLib"
@@ -49,18 +55,24 @@ workspace "embed-lua"
       files {
          "../../lua-5.3.5/src/**.*"
       }
+      if os.ishost("linux") then
+         defines { "LUA_COMPAT_MODULE_5_2", "LUA_USE_LINUX" }
+      end
 
-   -- lua stock interpreter (lua)
-   project "lua-repl"
+   -- lua interpreter (lua)
+   project "lua"
       targetname "lua"
-      targetdir ("../../lua-repl")
+      targetdir ("../../lua")
       kind "ConsoleApp"
       language "C"
       includedirs { Lua_IncPath }
       files {
-         "../../lua-repl/lua.c"
+         "../../lua/lua.c"
       }
-      links {"lua"}
+      links {"lualib"}
+      if os.ishost("linux") then
+         links {"dl", "m"}
+      end
 
    -- lua compiler (luac)
    project "lua-compiler"
@@ -72,7 +84,14 @@ workspace "embed-lua"
       files {
          "../../luac/luac.c"
       }
-      links {"lua"}
+      links {"lualib"}
+      if os.ishost("linux") then
+         links {"dl", "m"}
+      end
+
+   --
+   --
+   --
 
    -- lua bare interpreter (lua)
    project "lua-bare-repl"
@@ -84,7 +103,10 @@ workspace "embed-lua"
       files {
          "../../lua-bare-repl/main.c"
       }
-      links {"lua"}
+      links {"lualib"}
+      if os.ishost("linux") then
+         links {"dl", "m"}
+      end
 
    -- stack-dump (demostrates stack interface)"
    project "stack-dump"
@@ -96,7 +118,10 @@ workspace "embed-lua"
       files {
          "../../stack-dump/main.c"
       }
-      links {"lua"}
+      links {"lualib"}
+      if os.ishost("linux") then
+         links {"dl", "m"}
+      end
 
    -- read-config (demostrates reading a config file)"
    project "read-config"
@@ -109,88 +134,123 @@ workspace "embed-lua"
          "../../read-config/main.c",
          "../../read-config/config.lua"
       }
-      links {"lua"}
+      links {"lualib"}
+      if os.ishost("linux") then
+         links {"dl", "m"}
+      end
 
-   project "ex01"
-      targetname "ex01"
-      targetdir ("../../ex01/")
+   --
+   -- examples from YouTube Lua tutorial
+   --
+
+   project "tutorial01"
+      targetname "tutorial"
+      targetdir ("../../tutorial01/")
       kind "ConsoleApp"
       language "C++"
+      flags { "C++11" }
       includedirs { Lua_IncPath }
       libdirs     { Lua_LibPath }
       files {
-         "../../ex01/**.cpp"
+         "../../tutorial01/**.cpp"
       }
-      links {"lua"}
+      links {"lualib"}
+      if os.ishost("linux") then
+         links {"dl", "m"}
+      end
 
-   project "ex02"
-      targetname "ex02"
-      targetdir ("../../ex02/")
+   project "tutorial02"
+      targetname "tutorial"
+      targetdir ("../../tutorial02/")
       kind "ConsoleApp"
       language "C++"
+      flags { "C++11" }
       includedirs { Lua_IncPath }
       libdirs     { Lua_LibPath }
       files {
-         "../../ex02/**.cpp"
+         "../../tutorial02/**.cpp"
       }
-      links {"lua"}
+      links {"lualib"}
+      if os.ishost("linux") then
+         links {"dl", "m"}
+      end
 
-   project "ex03"
-      targetname "ex03"
-      targetdir ("../../ex03/")
+   project "tutorial03"
+      targetname "tutorial"
+      targetdir ("../../tutorial03/")
       kind "ConsoleApp"
       language "C++"
+      flags { "C++11" }
       includedirs { Lua_IncPath }
       libdirs     { Lua_LibPath }
       files {
-         "../../ex03/**.cpp"
+         "../../tutorial03/**.cpp"
       }
-      links {"lua"}
+      links {"lualib"}
+      if os.ishost("linux") then
+         links {"dl", "m"}
+      end
 
-   project "ex04"
-      targetname "ex04"
-      targetdir ("../../ex04/")
+   project "tutorial04"
+      targetname "tutorial"
+      targetdir ("../../tutorial04/")
       kind "ConsoleApp"
       language "C++"
+      flags { "C++11" }
       includedirs { Lua_IncPath }
       libdirs     { Lua_LibPath }
       files {
-         "../../ex04/**.cpp"
+         "../../tutorial04/**.cpp"
       }
-      links {"lua"}
+      links {"lualib"}
+      if os.ishost("linux") then
+         links {"dl", "m"}
+      end
 
-   project "ex05"
-      targetname "ex05"
-      targetdir ("../../ex05/")
+   project "tutorial05"
+      targetname "tutorial"
+      targetdir ("../../tutorial05/")
       kind "ConsoleApp"
       language "C++"
+      flags { "C++11" }
       includedirs { Lua_IncPath }
       libdirs     { Lua_LibPath }
       files {
-         "../../ex05/**.cpp"
+         "../../tutorial05/**.cpp"
       }
-      links {"lua"}
+      links {"lualib"}
+      if os.ishost("linux") then
+         links {"dl", "m"}
+      end
 
-   project "ex06"
-      targetname "ex06"
-      targetdir ("../../ex06/")
+   project "tutorial06"
+      targetname "tutorial"
+      targetdir ("../../tutorial06/")
       kind "ConsoleApp"
       language "C++"
+      flags { "C++11" }
       includedirs { Lua_IncPath }
       libdirs     { Lua_LibPath }
       files {
-         "../../ex06/**.cpp"
+         "../../tutorial06/**.cpp"
       }
-      links {"lua"}
+      links {"lualib"}
+      if os.ishost("linux") then
+         links {"dl", "m"}
+      end
 
-   project "ex07"
-      targetname "ex07"
-      targetdir ("../../ex07/")
+   project "tutorial07"
+      targetname "tutorial"
+      targetdir ("../../tutorial07/")
       kind "ConsoleApp"
       language "C++"
+      flags { "C++11" }
       includedirs { Lua_IncPath }
       libdirs     { Lua_LibPath }
       files {
-         "../../ex07/**.cpp"
+         "../../tutorial07/**.cpp"
       }
-      links {"lua"}
+      links {"lualib"}
+      if os.ishost("linux") then
+         links {"dl", "m"}
+      end

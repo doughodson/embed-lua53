@@ -7,7 +7,7 @@ int main()
 {
    std::printf("---------- tables ----------\n");
 
-   constexpr char* LUA_FILE = R"(
+   constexpr const char* LUA_FILE = R"(
    x = { dave="busy", ian="idle" }
    )";
 
