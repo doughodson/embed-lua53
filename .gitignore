@@ -31,14 +31,18 @@ luac
 luac.exe
 luac_d.exe
 
-
+stack-dump
 stack-dump.exe
 stack-dump_d.exe
+
+read-config
 read-config.exe
 read-config_d.exe
+
 #
 # examples based on Lua tutorial
 #
 tutorial
 tutorial.exe
 tutorial_d.exe
+
