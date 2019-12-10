@@ -57,7 +57,7 @@ workspace "embed-lua"
          "../../lua-5.3.5/src/**.*"
       }
       if os.ishost("linux") then
-         defines { "LUA_COMPAT_MODULE_5_2", "LUA_USE_LINUX" }
+         defines { "LUA_USE_LINUX" }
       end
 
    -- lua interpreter (lua)
@@ -141,18 +141,18 @@ workspace "embed-lua"
       end
 
       -- shared library
-      project "shared, C++ based library"
+      project "shared, C based library"
          targetname "shared"
          targetdir ("../../shared")
          kind "SharedLib"
-         language "C++"
+         language "C"
          pic "On"
          includedirs { Lua_IncPath }
          files {
             "../../shared/mylib.cpp",
             "../../shared/test.lua"
          }
---         links {"lualib"}
+         links {"lualib"}
 --         if os.ishost("linux") then
 --            links {"dl", "m"}
 --         end
