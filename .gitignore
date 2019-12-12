@@ -28,35 +28,28 @@ gmake/
 lua.lib
 lua_d.lib
 repl.exe
-repl_d.exe
 
 luac
 luac.exe
-luac_d.exe
 
 stack-dump
 stack-dump.exe
-stack-dump_d.exe
 
 read-config
 read-config.exe
-read-config_d.exe
 
-# don't ignore the lua interpreter in shared example
-!shared/lua
-!shared/lua.exe
-!shared/lua_d.exe
-shared.so
-shared.dll
-shared_d.dll
-libshared.so
+# don't ignore repl (the lua interpreter) in module example
+!module/lua
+!module/repl.exe
+module.so
+module.dll
+module.lib
 
 #
-# examples based on Lua tutorial
+# examples based on YouTube Lua tutorial
 #
 tutorial
 tutorial.exe
-tutorial_d.exe
 
 
 

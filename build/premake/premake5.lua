@@ -104,6 +104,23 @@ workspace "embed-lua"
    -- Related examples
    --
 
+   -- module, a C-based Lua library
+   project "module"
+      targetname "module"
+      targetdir ("../../module")
+      kind "SharedLib"
+      language "C"
+      includedirs { Lua_SrcPath }
+      includedirs { Lua_SrcPath }
+      files {
+         "../../module/**.c",
+         "../../module/test.lua"
+      }
+      links {"lua"}
+      if os.ishost("windows") then
+         defines { "LUA_BUILD_AS_DLL" }
+      end
+
    -- bare lua/repl interpreter
    project "repl-bare"
       targetname "repl"
@@ -149,23 +166,6 @@ workspace "embed-lua"
       if os.ishost("linux") then
          links {"dl", "m"}
       end
-
-      -- shared, a C-based Lua library
-      project "shared"
-         targetname "shared"
-         targetdir ("../../shared")
-         kind "SharedLib"
-         language "C"
-         pic "On"
-         includedirs { Lua_IncPath }
-         files {
-            "../../shared/**.c",
-            "../../shared/test.lua"
-         }
---         links {"lualib"}
---         if os.ishost("linux") then
---            links {"dl", "m"}
---         end
 
    --
    -- examples from YouTube Lua tutorial
