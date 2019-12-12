@@ -36,7 +36,6 @@ workspace "embed-lua"
 
    -- common debug configuration flags and symbols
    filter "configurations:Debug"
-      targetsuffix "_d"
       symbols "On"
 
    filter "system:windows"
@@ -45,13 +44,12 @@ workspace "embed-lua"
    -- stock lua library, interpreter and compiler
    --
 
-   -- lua library
+   -- lua library  (compiled as a shared library)
    project "lualib"
       targetname "lua"
       targetdir ("../../lua-5.3.5/lib/")
-      kind "StaticLib"
+      kind "SharedLib"
       language "C"
-      pic "On"
       includedirs { Lua_IncPath }
       files {
          "../../lua-5.3.5/src/**.*"
@@ -59,6 +57,7 @@ workspace "embed-lua"
       if os.ishost("linux") then
          defines { "LUA_USE_LINUX" }
       end
+      defines { "LUA_BUILD_AS_DLL" }
 
    -- lua interpreter (lua)
    project "lua"
@@ -67,25 +66,26 @@ workspace "embed-lua"
       kind "ConsoleApp"
       language "C"
       includedirs { Lua_IncPath }
+      libdirs     { Lua_LibPath }
       files {
          "../../lua/lua.c"
       }
-      links {"lualib"}
+      links {"lua"}
       if os.ishost("linux") then
          links {"dl", "m"}
       end
 
-   -- lua compiler (luac)
-   project "lua-compiler"
+   -- lua compiler
+   project "luac"
       targetname "luac"
       targetdir ("../../luac")
       kind "ConsoleApp"
       language "C"
       includedirs { Lua_IncPath }
       files {
+         "../../lua-5.3.5/src/**.*",
          "../../luac/luac.c"
       }
-      links {"lualib"}
       if os.ishost("linux") then
          links {"dl", "m"}
       end

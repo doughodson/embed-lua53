@@ -13,6 +13,8 @@ gmake/
 *.idb
 *.ilk
 *.pdb
+*.dll
+*.exp
 
 # compiled object files
 *.[oa]
