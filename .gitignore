@@ -25,11 +25,10 @@ gmake/
 #
 # lua library, interpreter and compiler
 #
-lua
-lua.exe
-lua_d.exe
 lua.lib
 lua_d.lib
+repl.exe
+repl_d.exe
 
 luac
 luac.exe

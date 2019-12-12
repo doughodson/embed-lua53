@@ -4,14 +4,15 @@
 --
 -- Targets of interest:
 --     vs2019     (Visual Studio 2019)
+--     gmake      (Linux make)
 --
 if (_ACTION == nil) then
     return
 end
 
-Lua_IncPath  = "../../lua-5.3.5/src"
-Lua_LibPath  = "../../lua-5.3.5/lib"
-Lua_LibFile  = "lua"
+Lua_Root     = "../../lua/"
+Lua_SrcPath  = Lua_Root .. "src/"
+Lua_LibPath  = Lua_Root .. "lib/"
 
 workspace "embed-lua"
 
@@ -44,47 +45,56 @@ workspace "embed-lua"
    -- stock lua library, interpreter and compiler
    --
 
-   -- lua library  (compiled as a shared library)
-   project "lualib"
+   -- lua library (compiled as a shared library)
+   project "lua"
       targetname "lua"
-      targetdir ("../../lua-5.3.5/lib/")
       kind "SharedLib"
       language "C"
-      includedirs { Lua_IncPath }
+      targetdir ( Lua_LibPath )
+      includedirs { Lua_SrcPath }
       files {
-         "../../lua-5.3.5/src/**.*"
+         Lua_SrcPath .. "**.*"    -- include all source files
       }
+      excludes {
+         Lua_SrcPath .. "lua.c",  -- but not the repl
+         Lua_SrcPath .. "lua.h",  -- or it's associated header file
+         Lua_SrcPath .. "luac.c"  -- or the compiler
+      }
+      if os.ishost("windows") then
+         defines { "LUA_BUILD_AS_DLL" }
+      end
       if os.ishost("linux") then
          defines { "LUA_USE_LINUX" }
       end
-      defines { "LUA_BUILD_AS_DLL" }
 
-   -- lua interpreter (lua)
-   project "lua"
-      targetname "lua"
-      targetdir ("../../lua")
+   -- lua interpreter (repl), uses shared library / dll
+   project "repl"
+      targetname "repl"
+      targetdir ("../../repl")
       kind "ConsoleApp"
       language "C"
-      includedirs { Lua_IncPath }
+      includedirs { Lua_SrcPath }
       libdirs     { Lua_LibPath }
       files {
-         "../../lua/lua.c"
+         Lua_SrcPath .. "lua.c"
       }
       links {"lua"}
       if os.ishost("linux") then
          links {"dl", "m"}
       end
 
-   -- lua compiler
+   -- lua compiler, standalone, no DLL required
    project "luac"
       targetname "luac"
       targetdir ("../../luac")
       kind "ConsoleApp"
       language "C"
-      includedirs { Lua_IncPath }
+      includedirs { Lua_SrcPath }
       files {
-         "../../lua-5.3.5/src/**.*",
-         "../../luac/luac.c"
+         Lua_SrcPath .. "**.*"
+      }
+      excludes {
+         Lua_SrcPath .. "lua.c"
       }
       if os.ishost("linux") then
          links {"dl", "m"}
@@ -94,17 +104,17 @@ workspace "embed-lua"
    -- Related examples
    --
 
-   -- lua bare interpreter (lua)
-   project "lua-bare-repl"
-      targetname "lua"
-      targetdir ("../../lua-bare-repl")
+   -- bare lua/repl interpreter
+   project "repl-bare"
+      targetname "repl"
+      targetdir ("../../repl-bare")
       kind "ConsoleApp"
       language "C"
       includedirs { Lua_IncPath }
       files {
-         "../../lua-bare-repl/main.c"
+         "../../repl-bare/main.c"
       }
-      links {"lualib"}
+      links {"lua"}
       if os.ishost("linux") then
          links {"dl", "m"}
       end

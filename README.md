@@ -3,6 +3,8 @@
 
 #### "Embedding Lua in C++" by Dave Poo.
 
+Lua directory contains version 5.3.5 source code
+
 #### Example app "ex01": basic operations to/from virtual stack
 This covers videos 1 & 2
 
