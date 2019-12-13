@@ -25,10 +25,11 @@ gmake/
 #
 # lua library, interpreter and compiler
 #
+lua.so
+lua.dll
 lua.lib
-lua_d.lib
+repl
 repl.exe
-
 luac
 luac.exe
 
@@ -39,8 +40,11 @@ read-config
 read-config.exe
 
 # don't ignore repl (the lua interpreter) in module example
-!module/lua
-!module/repl.exe
+!bin/lua.so
+!bin/lua.dll
+!bin/repl
+!bin/repl.exe
+
 module.so
 module.dll
 module.lib
