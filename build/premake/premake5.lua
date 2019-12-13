@@ -76,7 +76,7 @@ workspace "embed-lua"
 
    -- lua interpreter (repl), uses shared library / dll
    project "repl"
-      targetname "repl"
+      targetname "lua"
       targetdir ("../../repl")
       kind "ConsoleApp"
       language "C"
@@ -130,7 +130,7 @@ workspace "embed-lua"
 
    -- bare lua/repl interpreter
    project "repl-bare"
-      targetname "repl"
+      targetname "lua"
       targetdir ("../../repl-bare")
       kind "ConsoleApp"
       language "C"
