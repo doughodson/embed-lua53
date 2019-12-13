@@ -19,6 +19,12 @@ workspace "embed-lua"
    -- destination directory for generated solution/project files
    location ("../" .. _ACTION)
 
+   -- don't automatically prefix the name of generated targets
+   targetprefix ""
+
+   -- compile for 64 bits (no 32 bits for now)
+   architecture "x86_64"
+
    --
    -- Build (solution) configuration options:
    --     Release        (Runtime library is Multi-threaded DLL)
@@ -41,6 +47,7 @@ workspace "embed-lua"
 
    filter "system:windows"
          defines { "WIN32", "_LIB", "_DEBUG" }
+
    --
    -- stock lua library, interpreter and compiler
    --

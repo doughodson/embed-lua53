@@ -2,7 +2,7 @@
 #ifdef LUA_BUILD_AS_DLL
 #define EXPORT_FUNCTION __declspec(dllexport)
 #else
-#DEFINE EXPORT_FUNCTION
+#define EXPORT_FUNCTION
 #endif
 
 // C headers
