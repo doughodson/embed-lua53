@@ -171,13 +171,13 @@ workspace "embed-lua"
    --
 
    -- module, a C-based Lua library
-   project "module"
+   project "module53"
       targetname "module"
-      targetdir ("../../module")
+      targetdir ("../../module53")
       kind "SharedLib"
       language "C"
-      includedirs { Lua_SrcPath }
-      includedirs { Lua_SrcPath }
+      includedirs { Lua53_SrcPath }
+      includedirs { Lua53_SrcPath }
       files {
          "../../module/**.c",
          "../../module/test.lua"
@@ -188,14 +188,14 @@ workspace "embed-lua"
       end
 
    -- bare lua/repl interpreter
-   project "repl-bare"
+   project "repl53-bare"
       targetname "lua"
-      targetdir ("../../repl-bare")
+      targetdir ("../../repl53-bare")
       kind "ConsoleApp"
       language "C"
-      includedirs { Lua_SrcPath }
+      includedirs { Lua53_SrcPath }
       files {
-         "../../repl-bare/main.c"
+         "../../repl53-bare/main.c"
       }
       links {"lua53"}
       if os.ishost("linux") then
@@ -208,7 +208,7 @@ workspace "embed-lua"
       targetdir ("../../stack-dump")
       kind "ConsoleApp"
       language "C"
-      includedirs { Lua_SrcPath }
+      includedirs { Lua53_SrcPath }
       files {
          "../../stack-dump/main.c"
       }
@@ -223,7 +223,7 @@ workspace "embed-lua"
       targetdir ("../../read-config")
       kind "ConsoleApp"
       language "C"
-      includedirs { Lua_SrcPath }
+      includedirs { Lua53_SrcPath }
       files {
          "../../read-config/main.c",
          "../../read-config/config.lua"
@@ -243,8 +243,8 @@ workspace "embed-lua"
       kind "ConsoleApp"
       language "C++"
       cppdialect "C++11"
-      includedirs { Lua_SrcPath }
-      libdirs     { Lua_LibPath }
+      includedirs { Lua53_SrcPath }
+      libdirs     { Lua53_LibPath }
       files {
          "../../tutorial01/**.cpp"
       }
@@ -259,8 +259,8 @@ workspace "embed-lua"
       kind "ConsoleApp"
       language "C++"
       cppdialect "C++11"
-      includedirs { Lua_SrcPath }
-      libdirs     { Lua_LibPath }
+      includedirs { Lua53_SrcPath }
+      libdirs     { Lua53_LibPath }
       files {
          "../../tutorial02/**.cpp"
       }
@@ -275,8 +275,8 @@ workspace "embed-lua"
       kind "ConsoleApp"
       language "C++"
       cppdialect "C++11"
-      includedirs { Lua_SrcPath }
-      libdirs     { Lua_LibPath }
+      includedirs { Lua53_SrcPath }
+      libdirs     { Lua53_LibPath }
       files {
          "../../tutorial03/**.cpp"
       }
@@ -291,8 +291,8 @@ workspace "embed-lua"
       kind "ConsoleApp"
       language "C++"
       cppdialect "C++11"
-      includedirs { Lua_SrcPath }
-      libdirs     { Lua_LibPath }
+      includedirs { Lua53_SrcPath }
+      libdirs     { Lua53_LibPath }
       files {
          "../../tutorial04/**.cpp"
       }
@@ -307,8 +307,8 @@ workspace "embed-lua"
       kind "ConsoleApp"
       language "C++"
       cppdialect "C++11"
-      includedirs { Lua_SrcPath }
-      libdirs     { Lua_LibPath }
+      includedirs { Lua53_SrcPath }
+      libdirs     { Lua53_LibPath }
       files {
          "../../tutorial05/**.cpp"
       }
@@ -323,8 +323,8 @@ workspace "embed-lua"
       kind "ConsoleApp"
       language "C++"
       cppdialect "C++11"
-      includedirs { Lua_SrcPath }
-      libdirs     { Lua_LibPath }
+      includedirs { Lua53_SrcPath }
+      libdirs     { Lua53_LibPath }
       files {
          "../../tutorial06/**.cpp"
       }
@@ -339,8 +339,8 @@ workspace "embed-lua"
       kind "ConsoleApp"
       language "C++"
       cppdialect "C++11"
-      includedirs { Lua_SrcPath }
-      libdirs     { Lua_LibPath }
+      includedirs { Lua53_SrcPath }
+      libdirs     { Lua53_LibPath }
       files {
          "../../tutorial07/**.cpp"
       }
@@ -348,4 +348,5 @@ workspace "embed-lua"
       if os.ishost("linux") then
          links {"dl", "m"}
       end
+
 
