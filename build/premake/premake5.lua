@@ -179,8 +179,8 @@ workspace "embed-lua"
       includedirs { Lua53_SrcPath }
       includedirs { Lua53_SrcPath }
       files {
-         "../../module/**.c",
-         "../../module/test.lua"
+         "../../module53/**.c",
+         "../../module53/test.lua"
       }
       links {"lua53"}
       if os.ishost("windows") then
