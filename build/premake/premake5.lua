@@ -61,8 +61,8 @@ workspace "embed-lua"
       targetname "lua"
       kind "SharedLib"
       language "C"
-      targetdir ( Lua_LibPath )
-      includedirs { Lua_SrcPath }
+      targetdir ( Lua51_LibPath )
+      includedirs { Lua51_SrcPath }
       files {
          Lua51_SrcPath .. "**.*"    -- include all source files
       }
@@ -83,8 +83,8 @@ workspace "embed-lua"
       targetname "lua"
       kind "SharedLib"
       language "C"
-      targetdir ( Lua_LibPath )
-      includedirs { Lua_SrcPath }
+      targetdir ( Lua53_LibPath )
+      includedirs { Lua53_SrcPath }
       files {
          Lua53_SrcPath .. "**.*"    -- include all source files
       }
