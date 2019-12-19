@@ -10,9 +10,13 @@ if (_ACTION == nil) then
     return
 end
 
-Lua_Root     = "../../lua/"
-Lua_SrcPath  = Lua_Root .. "src/"
-Lua_LibPath  = Lua_Root .. "lib/"
+Lua51_Root     = "../../lua-5.1.5/"
+Lua51_SrcPath  = Lua51_Root .. "src/"
+Lua51_LibPath  = Lua51_Root .. "lib/"
+
+Lua53_Root     = "../../lua-5.3.5/"
+Lua53_SrcPath  = Lua53_Root .. "src/"
+Lua53_LibPath  = Lua53_Root .. "lib/"
 
 workspace "embed-lua"
 
@@ -52,20 +56,20 @@ workspace "embed-lua"
    -- stock lua library, interpreter and compiler
    --
 
-   -- lua library (compiled as a shared library)
-   project "lua"
+   -- lua 5.1 library (compiled as a shared library)
+   project "lua51"
       targetname "lua"
       kind "SharedLib"
       language "C"
       targetdir ( Lua_LibPath )
       includedirs { Lua_SrcPath }
       files {
-         Lua_SrcPath .. "**.*"    -- include all source files
+         Lua51_SrcPath .. "**.*"    -- include all source files
       }
       excludes {
-         Lua_SrcPath .. "lua.c",  -- but not the repl
-         Lua_SrcPath .. "lua.h",  -- or it's associated header file
-         Lua_SrcPath .. "luac.c"  -- or the compiler
+         Lua51_SrcPath .. "lua.c",  -- but not the repl
+         Lua51_SrcPath .. "lua.h",  -- or it's associated header file
+         Lua51_SrcPath .. "luac.c"  -- or the compiler
       }
       if os.ishost("windows") then
          defines { "LUA_BUILD_AS_DLL" }
@@ -74,8 +78,30 @@ workspace "embed-lua"
          defines { "LUA_USE_LINUX" }
       end
 
-   -- lua interpreter (repl), uses shared library / dll
-   project "repl"
+   -- lua 5.3 library (compiled as a shared library)
+   project "lua53"
+      targetname "lua"
+      kind "SharedLib"
+      language "C"
+      targetdir ( Lua_LibPath )
+      includedirs { Lua_SrcPath }
+      files {
+         Lua53_SrcPath .. "**.*"    -- include all source files
+      }
+      excludes {
+         Lua53_SrcPath .. "lua.c",  -- but not the repl
+         Lua53_SrcPath .. "lua.h",  -- or it's associated header file
+         Lua53_SrcPath .. "luac.c"  -- or the compiler
+      }
+      if os.ishost("windows") then
+         defines { "LUA_BUILD_AS_DLL" }
+      end
+      if os.ishost("linux") then
+         defines { "LUA_USE_LINUX" }
+      end
+
+   -- lua 5.1 interpreter (repl), uses shared library / dll
+   project "repl51"
       targetname "lua"
       targetdir ("../../repl")
       kind "ConsoleApp"
@@ -83,7 +109,23 @@ workspace "embed-lua"
       includedirs { Lua_SrcPath }
       libdirs     { Lua_LibPath }
       files {
-         Lua_SrcPath .. "lua.c"
+         Lua51_SrcPath .. "lua.c"
+      }
+      links {"lua"}
+      if os.ishost("linux") then
+         links {"dl", "m"}
+      end
+
+   -- lua 5.3 interpreter (repl), uses shared library / dll
+   project "repl53"
+      targetname "lua"
+      targetdir ("../../repl")
+      kind "ConsoleApp"
+      language "C"
+      includedirs { Lua_SrcPath }
+      libdirs     { Lua_LibPath }
+      files {
+         Lua53_SrcPath .. "lua.c"
       }
       links {"lua"}
       if os.ishost("linux") then
@@ -91,17 +133,17 @@ workspace "embed-lua"
       end
 
    -- lua compiler, standalone, no DLL required
-   project "luac"
+   project "luac53"
       targetname "luac"
       targetdir ("../../luac")
       kind "ConsoleApp"
       language "C"
       includedirs { Lua_SrcPath }
       files {
-         Lua_SrcPath .. "**.*"
+         Lua53_SrcPath .. "**.*"
       }
       excludes {
-         Lua_SrcPath .. "lua.c"
+         Lua53_SrcPath .. "lua.c"
       }
       if os.ishost("linux") then
          links {"dl", "m"}
@@ -123,7 +165,7 @@ workspace "embed-lua"
          "../../module/**.c",
          "../../module/test.lua"
       }
-      links {"lua"}
+      links {"lua53"}
       if os.ishost("windows") then
          defines { "LUA_BUILD_AS_DLL" }
       end
@@ -138,7 +180,7 @@ workspace "embed-lua"
       files {
          "../../repl-bare/main.c"
       }
-      links {"lua"}
+      links {"lua53"}
       if os.ishost("linux") then
          links {"dl", "m"}
       end
@@ -153,7 +195,7 @@ workspace "embed-lua"
       files {
          "../../stack-dump/main.c"
       }
-      links {"lua"}
+      links {"lua53"}
       if os.ishost("linux") then
          links {"dl", "m"}
       end
@@ -169,7 +211,7 @@ workspace "embed-lua"
          "../../read-config/main.c",
          "../../read-config/config.lua"
       }
-      links {"lua"}
+      links {"lua53"}
       if os.ishost("linux") then
          links {"dl", "m"}
       end
@@ -189,7 +231,7 @@ workspace "embed-lua"
       files {
          "../../tutorial01/**.cpp"
       }
-      links {"lua"}
+      links {"lua53"}
       if os.ishost("linux") then
          links {"dl", "m"}
       end
@@ -205,7 +247,7 @@ workspace "embed-lua"
       files {
          "../../tutorial02/**.cpp"
       }
-      links {"lua"}
+      links {"lua53"}
       if os.ishost("linux") then
          links {"dl", "m"}
       end
@@ -221,7 +263,7 @@ workspace "embed-lua"
       files {
          "../../tutorial03/**.cpp"
       }
-      links {"lua"}
+      links {"lua53"}
       if os.ishost("linux") then
          links {"dl", "m"}
       end
@@ -237,7 +279,7 @@ workspace "embed-lua"
       files {
          "../../tutorial04/**.cpp"
       }
-      links {"lua"}
+      links {"lua53"}
       if os.ishost("linux") then
          links {"dl", "m"}
       end
@@ -253,7 +295,7 @@ workspace "embed-lua"
       files {
          "../../tutorial05/**.cpp"
       }
-      links {"lua"}
+      links {"lua53"}
       if os.ishost("linux") then
          links {"dl", "m"}
       end
@@ -269,7 +311,7 @@ workspace "embed-lua"
       files {
          "../../tutorial06/**.cpp"
       }
-      links {"lua"}
+      links {"lua53"}
       if os.ishost("linux") then
          links {"dl", "m"}
       end
@@ -285,7 +327,8 @@ workspace "embed-lua"
       files {
          "../../tutorial07/**.cpp"
       }
-      links {"lua"}
+      links {"lua53"}
       if os.ishost("linux") then
          links {"dl", "m"}
       end
+
