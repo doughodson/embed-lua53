@@ -10,10 +10,6 @@ if (_ACTION == nil) then
     return
 end
 
-Lua51_Root     = "../../lua-5.1.5/"
-Lua51_SrcPath  = Lua51_Root .. "src/"
-Lua51_LibPath  = Lua51_Root .. "lib/"
-
 Lua53_Root     = "../../lua-5.3.5/"
 Lua53_SrcPath  = Lua53_Root .. "src/"
 Lua53_LibPath  = Lua53_Root .. "lib/"
@@ -56,28 +52,6 @@ workspace "embed-lua"
    -- stock lua library, interpreter and compiler
    --
 
-   -- lua 5.1 library (compiled as a shared library)
-   project "lua51"
-      targetname "lua"
-      kind "SharedLib"
-      language "C"
-      targetdir ( Lua51_LibPath )
-      includedirs { Lua51_SrcPath }
-      files {
-         Lua51_SrcPath .. "**.*"    -- include all source files
-      }
-      excludes {
-         Lua51_SrcPath .. "lua.c",  -- but not the repl
-         Lua51_SrcPath .. "lua.h",  -- or it's associated header file
-         Lua51_SrcPath .. "luac.c"  -- or the compiler
-      }
-      if os.ishost("windows") then
-         defines { "LUA_BUILD_AS_DLL" }
-      end
-      if os.ishost("linux") then
-         defines { "LUA_USE_LINUX" }
-      end
-
    -- lua 5.3 library (compiled as a shared library)
    project "lua53"
       targetname "lua"
@@ -100,26 +74,10 @@ workspace "embed-lua"
          defines { "LUA_USE_LINUX" }
       end
 
-   -- lua 5.1 interpreter (repl), uses shared library / dll
-   project "repl51"
-      targetname "lua"
-      targetdir ("../../repl51")
-      kind "ConsoleApp"
-      language "C"
-      includedirs { Lua_SrcPath }
-      libdirs     { Lua_LibPath }
-      files {
-         Lua51_SrcPath .. "lua.c"
-      }
-      links {"lua51"}
-      if os.ishost("linux") then
-         links {"dl", "m"}
-      end
-
    -- lua 5.3 interpreter (repl), uses shared library / dll
-   project "repl53"
+   project "repl"
       targetname "lua"
-      targetdir ("../../repl53")
+      targetdir ("../../repl")
       kind "ConsoleApp"
       language "C"
       includedirs { Lua_SrcPath }
@@ -132,27 +90,10 @@ workspace "embed-lua"
          links {"dl", "m"}
       end
 
-   -- lua 5.1 compiler, standalone, no DLL required
-   project "luac51"
-      targetname "luac"
-      targetdir ("../../luac51")
-      kind "ConsoleApp"
-      language "C"
-      includedirs { Lua_SrcPath }
-      files {
-         Lua51_SrcPath .. "**.*"
-      }
-      excludes {
-         Lua51_SrcPath .. "lua.c"
-      }
-      if os.ishost("linux") then
-         links {"dl", "m"}
-      end
-
    -- lua 5.3 compiler, standalone, no DLL required
-   project "luac53"
+   project "luac"
       targetname "luac"
-      targetdir ("../../luac53")
+      targetdir ("../../luac")
       kind "ConsoleApp"
       language "C"
       includedirs { Lua_SrcPath }
@@ -171,16 +112,16 @@ workspace "embed-lua"
    --
 
    -- module, a C-based Lua library
-   project "module53"
+   project "module"
       targetname "module"
-      targetdir ("../../module53")
+      targetdir ("../../module")
       kind "SharedLib"
       language "C"
       includedirs { Lua53_SrcPath }
       includedirs { Lua53_SrcPath }
       files {
-         "../../module53/**.c",
-         "../../module53/test.lua"
+         "../../module/**.c",
+         "../../module/test.lua"
       }
       links {"lua53"}
       if os.ishost("windows") then
@@ -188,14 +129,14 @@ workspace "embed-lua"
       end
 
    -- bare lua/repl interpreter
-   project "repl53-bare"
+   project "repl-bare"
       targetname "lua"
-      targetdir ("../../repl53-bare")
+      targetdir ("../../repl-bare")
       kind "ConsoleApp"
       language "C"
       includedirs { Lua53_SrcPath }
       files {
-         "../../repl53-bare/main.c"
+         "../../repl-bare/main.c"
       }
       links {"lua53"}
       if os.ishost("linux") then
