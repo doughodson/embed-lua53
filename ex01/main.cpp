@@ -9,8 +9,8 @@ int main()
    luaL_openlibs(L);               // load all standard libraries (modules)
 
    // execute script
-   const char lua_script[]{"x=25; print(x)"};
-   int load_stat{luaL_loadbuffer(L, lua_script, std::strlen(lua_script), lua_script)};
+   const char script[]{"x=25; print(x)"};
+   int status{luaL_loadbuffer(L, script, std::strlen(script), "name")};
    lua_pcall(L, 0, 0, 0);
 
    lua_close(L);

@@ -11,8 +11,12 @@ if (_ACTION == nil) then
 end
 
 Lua53_Root     = "../../lua-5.3.5/"
+Lua53_IncPath  = Lua53_Root .. "src/"
 Lua53_SrcPath  = Lua53_Root .. "src/"
 Lua53_LibPath  = Lua53_Root .. "lib/"
+
+sol2_Root      = "../../"
+sol2_IncPath   = sol2_Root
 
 workspace "embed-lua"
 
@@ -179,11 +183,43 @@ workspace "embed-lua"
       targetdir ("../../ex01/")
       kind "ConsoleApp"
       language "C++"
-      cppdialect "C++11"
-      includedirs { Lua53_SrcPath }
+      cppdialect "C++17"
+      includedirs { Lua53_IncPath }
       libdirs     { Lua53_LibPath }
       files {
          "../../ex01/**.cpp"
+      }
+      links {"lua53"}
+      if os.ishost("linux") then
+         links {"dl", "m"}
+      end
+
+   project "ex02"
+      targetname "example"
+      targetdir ("../../ex02/")
+      kind "ConsoleApp"
+      language "C++"
+      cppdialect "C++17"
+      includedirs { Lua53_IncPath }
+      libdirs     { Lua53_LibPath }
+      files {
+         "../../ex02/**.cpp"
+      }
+      links {"lua53"}
+      if os.ishost("linux") then
+         links {"dl", "m"}
+      end
+
+   project "ex03"
+      targetname "example"
+      targetdir ("../../ex03/")
+      kind "ConsoleApp"
+      language "C++"
+      cppdialect "C++17"
+      includedirs { Lua53_IncPath, sol2_IncPath }
+      libdirs     { Lua53_LibPath }
+      files {
+         "../../ex03/**.cpp"
       }
       links {"lua53"}
       if os.ishost("linux") then

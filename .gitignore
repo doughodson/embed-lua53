@@ -50,6 +50,13 @@ module/module.dll
 module/module.lib
 
 ex01/example
+ex01/example.exe
+
+ex02/example
+ex02/example.exe
+
+ex03/example
+ex03/example.exe
 
 #
 # examples based on YouTube Lua tutorial
