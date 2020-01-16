@@ -6,7 +6,7 @@
 
 int main() {
    lua_State* L{luaL_newstate()};  // open Lua interpreter
-   luaL_openlibs(L);               // load all standard libraries
+   luaL_openlibs(L);               // load all standard libraries (modules)
 
    char buff[256];
    while (std::fgets(buff, sizeof(buff), stdin) != NULL) {
