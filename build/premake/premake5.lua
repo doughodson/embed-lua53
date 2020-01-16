@@ -174,6 +174,22 @@ workspace "embed-lua"
          links {"dl", "m"}
       end
 
+   project "ex01"
+      targetname "example"
+      targetdir ("../../ex01/")
+      kind "ConsoleApp"
+      language "C++"
+      cppdialect "C++11"
+      includedirs { Lua53_SrcPath }
+      libdirs     { Lua53_LibPath }
+      files {
+         "../../ex01/**.cpp"
+      }
+      links {"lua53"}
+      if os.ishost("linux") then
+         links {"dl", "m"}
+      end
+
    --
    -- examples from YouTube Lua tutorial
    --
