@@ -133,10 +133,10 @@ workspace "embed-lua"
       targetname "lua"
       targetdir ("../../repl-bare")
       kind "ConsoleApp"
-      language "C"
+      language "C++"
       includedirs { Lua53_SrcPath }
       files {
-         "../../repl-bare/main.c"
+         "../../repl-bare/main.cpp"
       }
       links {"lua53"}
       if os.ishost("linux") then
